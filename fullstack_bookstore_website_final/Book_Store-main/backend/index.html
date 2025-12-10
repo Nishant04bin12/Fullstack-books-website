@@ -1,0 +1,463 @@
+<html>
+    <head>
+     
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="font-awesome/css/font-awesome.css">
+    </head>
+    <body>
+        <section class="main">
+            <nav>
+                <a href="#" class="logo"><img src="image/book.png" alt=""></a>
+                <ul class="menu">
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#featured">featured</a></li>
+                    <li><a href="#product">product</a></li>
+                    <li><a href="#catagories">catagories</a></li>
+                    <li><a href="#writer">Writer</a></li>
+                </ul>
+            </nav>
+            <section class="hero" id="home">
+               
+                <h1>Find Your <span>Ideal</span> Books Here</h1>
+                <p class="details">
+                  "May pain itself be loved, may it be sought after and striven for, because it is pain" or more commonly, "There is no one who loves pain itself, who seeks it and wants to have it, simply because it is pain"
+                </p>
+                <a href="#" class="download">Download Book</a>
+                 <button id="addBookBtn">Add New Book</button>
+                 <button id="updateBookBtn">Update Book</button>
+                
+
+                 <!-- Form to add book -->
+                <div id="bookForm">
+    <h3>Add Book</h3>
+    <label>
+        Author:
+        <input type="text" id="author">
+    </label>
+    <label>
+        Book Name:
+        <input type="text" id="bookName">
+    </label>
+    <label>
+        Price:
+        <input type="number" id="price" step="0.01">
+    </label>
+    <button id="saveBookBtn">Save Book</button>
+</div>
+
+<div id="updateForm">
+    <h3>Update Book</h3>
+    <label>Book No. to Edit: <input type="number" id="editIndex" min="1"></label>
+    <label>New Author: <input type="text" id="newAuthor"></label>
+    <label>New Book Name: <input type="text" id="newBookName"></label>
+    <label>New Price: <input type="number" id="newPrice" step="0.01"></label>
+    <button id="applyUpdateBtn">Apply Update</button>
+</div>
+
+<h3>Books</h3>
+<ol id="bookList"></ol>
+
+<script>
+    const addBtn   = document.getElementById('addBookBtn');
+    const updBtn   = document.getElementById('updateBookBtn');
+    const addForm  = document.getElementById('bookForm');
+    const updForm  = document.getElementById('updateForm');
+    const saveBtn  = document.getElementById('saveBookBtn');
+    const applyBtn = document.getElementById('applyUpdateBtn');
+    const list     = document.getElementById('bookList');
+
+    // data store in JS (for demo)
+    const books = [];
+
+    function renderBooks() {
+        list.innerHTML = '';
+        books.forEach((b, i) => {
+            const li = document.createElement('li');
+            li.textContent = `${i + 1}. ${b.name} by ${b.author} - $${b.price}`;
+            list.appendChild(li);
+        });
+    }
+
+    addBtn.addEventListener('click', () => {
+        addForm.style.display = 'block';
+        updForm.style.display = 'none';
+    });
+
+    updBtn.addEventListener('click', () => {
+        updForm.style.display = 'block';
+        addForm.style.display = 'none';
+    });
+
+    // add new book
+    saveBtn.addEventListener('click', () => {
+        const author   = document.getElementById('author').value;
+        const name     = document.getElementById('bookName').value;
+        const price    = document.getElementById('price').value;
+
+        if (!author || !name || !price) {
+            alert('Fill all fields.');
+            return;
+        }
+        books.push({ author, name, price });
+        renderBooks();
+
+        document.getElementById('author').value = '';
+        document.getElementById('bookName').value = '';
+        document.getElementById('price').value = '';
+        addForm.style.display = 'none';
+    });
+
+    // update existing book
+    applyBtn.addEventListener('click', () => {
+        const index = parseInt(document.getElementById('editIndex').value, 10) - 1;
+        const newAuthor   = document.getElementById('newAuthor').value;
+        const newName     = document.getElementById('newBookName').value;
+        const newPrice    = document.getElementById('newPrice').value;
+
+        if (index < 0 || index >= books.length) {
+            alert('Invalid book number.');
+            return;
+        }
+        if (!newAuthor || !newName || !newPrice) {
+            alert('Fill all fields.');
+            return;
+        }
+
+        books[index].author = newAuthor;
+        books[index].name   = newName;
+        books[index].price  = newPrice;
+
+        renderBooks();
+        updForm.style.display = 'none';
+        document.getElementById('editIndex').value = '';
+        document.getElementById('newAuthor').value = '';
+        document.getElementById('newBookName').value = '';
+        document.getElementById('newPrice').value = '';
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+
+            </section>
+        </section>
+        
+        <section class="featured" id="featured">
+            <h1 class="heading">our<span>featured</span></h1>
+            <div class="box-container">
+                <div class="box">
+                    <img src="image/best and cool.png" alt="">
+                    <h3>Best and cool</h3>
+                    <p>
+                        look at the design, not the words," focusing on visual elements. 
+                    </p>
+                    <a href="#" class="btn">read more</a>
+                </div>
+                <div class="box">
+                    <img src="image/frre delivery.png" alt="">
+                    <h3>Free Delivery</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, accusamus?
+                    </p>
+                    <a href="#" class="btn">read more</a>
+                </div>
+                <div class="box">
+                    <img src="image/payment.png" alt="">
+                    <h3>Fast Payment</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, accusamus?
+                    </p>
+                    <a href="#" class="btn">read more</a>
+                </div>
+            </div>
+        </section>
+        <section class="product" id="product">
+            <h1 class="heading">our<span>products</span></h1>
+            <div class="product-slider">
+                <div class="wrapper">
+                    <div class="box">
+                        <img src="image/book1.png" alt="">
+                        <h3>On The Origin Of Species</h3>
+                        <div class="price">$99</div>
+                        <div class="stars">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <a href="#" class="btn">add to cart</a>
+                    </div>
+                    <div class="box">
+                        <img src="image/book2.png" alt="">
+                        <h3>The Great Gatsby</h3>
+                        <div class="price">$99</div>
+                        <div class="stars">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <a href="#" class="btn">add to cart</a>
+                    </div>
+                    <div class="box">
+                        <img src="image/book3.png" alt="">
+                        <h3>The Catcher In The Rye</h3>
+                        <div class="price">$99</div>
+                        <div class="stars">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <a href="#" class="btn">add to cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="product-slider">
+                <div class="wrapper">
+                    <div class="box">
+                        <img src="image/book4.png" alt="">
+                        <h3>1984</h3>
+                        <div class="price">$99</div>
+                        <div class="stars">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <a href="#" class="btn">add to cart</a>
+                    </div>
+                    <div class="box">
+                        <img src="image/book5.png" alt="">
+                        <h3>Lord Of The Rings Trilogy</h3>
+                        <div class="price">$99</div>
+                        <div class="stars">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <a href="#" class="btn">add to cart</a>
+                    </div>
+                    <div class="box">
+                        <img src="image/book6.png" alt="">
+                        <h3>The Bible</h3>
+                        <div class="price">$99</div>
+                        <div class="stars">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <a href="#" class="btn">add to cart</a>
+                    </div>
+                    <div class="box">
+                        <img src="image/book7.png" alt="">
+                        <h3>War And Peace</h3>
+                        <div class="price">$99</div>
+                        <div class="stars">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <a href="#" class="btn">add to cart</a>
+                    </div>
+                    <div class="box">
+                        <img src="image/book8.png" alt="">
+                        <h3>Harry Potter Series</h3>
+                        <div class="price">$99</div>
+                        <div class="stars">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <a href="#" class="btn">add to cart</a>
+                    </div>
+                    <div class="box">
+                        <img src="image/book9.png" alt="">
+                        <h3>Great Expectation</h3>
+                        <div class="price">$99</div>
+                        <div class="stars">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <a href="#" class="btn">add to cart</a>
+                    </div>
+                    <div class="box">
+                        <img src="image/book10.png" alt="">
+                        <h3>Hamlet</h3>
+                        <div class="price">$99</div>
+                        <div class="stars">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <a href="#" class="btn">add to cart</a>
+                    </div>
+
+                </div>
+            </div>
+            </div>
+        </section>
+        <section class="catagories" id="catagories">
+            <h1 class="heading">product<span>catagories</span></h1>
+            <div class="box-container">
+                <div class="box">
+                    <img src="image/css.png" alt="">
+                    <h3>Css Book</h3>
+                    <p>upto 80% off</p>
+                    <a href="#" class="btn">shop now</a>
+                </div>
+                <div class="box">
+                    <img src="image/js.png" alt="">
+                    <h3>Js Book</h3>
+                    <p>upto 50% off</p>
+                    <a href="#" class="btn">shop now</a>
+                </div>
+                <div class="box">
+                    <img src="image/html.png" alt="">
+                    <h3>Html Book</h3>
+                    <p>upto 60% off</p>
+                    <a href="#" class="btn">shop now</a>
+                </div>
+                <div class="box">
+                    <img src="image/iot.png" alt="">
+                    <h3>IOT</h3>
+                    <p>upto 40% off</p>
+                    <a href="#" class="btn">shop now</a>
+                </div>
+            </div>
+        </section>
+        <section class="writer" id="writer">
+            <h1 class="heading">Best <span>Writer</span></h1>
+            <div class="box-container">
+                <div class="box">
+                    <img src="image/linus.png" alt="">
+                    <h3>Linus Torvalds</h3>
+                    <p>
+                    Practical, simple code, open collaboration, and finding joy in programming.
+                    </p>
+                    <div class="stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                   <div class="social-media">
+                       <i class="fa fa-facebook"></i>
+                       <i class="fa fa-instagram"></i>
+                       <i class="fa fa-twitter"></i>
+                       <i class="fa fa-linkedin"></i>
+                       <i class="fa fa-telegram"></i>
+                   </div>
+                </div>
+                <div class="box">
+                    <img src="image/dannie.png" alt="">
+                    <h3> Dennis Ritchie</h3>
+                    <p>
+                    Simplicity, portability, and practicality.
+                    </p>
+                    <div class="stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <div class="social-media">
+                        <i class="fa fa-facebook"></i>
+                        <i class="fa fa-instagram"></i>
+                        <i class="fa fa-twitter"></i>
+                        <i class="fa fa-linkedin"></i>
+                        <i class="fa fa-telegram"></i>
+                    </div>
+                </div>
+                <div class="box">
+                    <img src="image/bjarne.png" alt="">
+                    <h3> Bjarne Stroustrup</h3>
+                    <p>
+                        There are only two kinds of languages: the ones people complain about and the ones nobody uses.
+                    </p>
+                    <div class="stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <div class="social-media">
+                        <i class="fa fa-facebook"></i>
+                        <i class="fa fa-instagram"></i>
+                        <i class="fa fa-twitter"></i>
+                        <i class="fa fa-linkedin"></i>
+                        <i class="fa fa-telegram"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="footer">
+            <div class="box-container">
+                <div class="box">
+                    <h3>book<i class="fa fa-shopping-cart"></i></h3>
+                    <p>
+                    No one loves pain itself, seeks it out, and wants to have it, simply because it is pain
+                    </p>
+                    <div class="share">
+                       <a href="#" class="fa fa-facebook"></a>
+                       <a href="#" class="fa fa-instagram"></a>
+                       <a href="#" class="fa fa-twitter"></a>
+                       <a href="#" class="fa fa-telegram"></a>
+                    </div>
+                </div>
+                <div class="box">
+                    <h3>contact info</h3>
+                    <a href="#" class="links"><i class="fa fa-phone"> +123456789</i></a>
+                    <a href="#" class="links"><i class="fa fa-phone"> +987654321</i></a>
+                    <a href="#" class="links"><i class="fa fa-envelope"> code.project@gmail.com</i></a>
+                    <a href="#" class="links"><i class="fa fa-map-marker">Gwangju,South Korea</i></a>
+                </div>
+                <div class="box">
+                    <h3>quick link</h3>
+                    <a href="#" class="links"><i class="fa fa-arrow-right"> home</i></a>
+                    <a href="#" class="links"><i class="fa fa-arrow-right"> featured</i></a>
+                    <a href="#" class="links"><i class="fa fa-arrow-right"> product</i></a>
+                    <a href="#" class="links"><i class="fa fa-arrow-right"> catagories</i></a>
+                    <a href="#" class="links"><i class="fa fa-arrow-right"> writer</i></a>
+                </div>
+                <div class="box">
+                    <h3>newsletter</h3>
+                    <p>subscribe for latest updates</p>
+                    <input type="email" placeholder="enter your email" class="email">
+                    <input type="submit" value="subscribe" class="btn">
+                </div>
+            </div>
+        </section>
+    </body>
+    </html>
